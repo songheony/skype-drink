@@ -28,15 +28,30 @@ def new_chat(skype, msg):
 
 
 ID = "jpmansong@gmail.com"
-sk = Server(ID, member_event=new_member, chat_event=new_chat)
-sk_thread = threading.Thread(target=sk.loop)
+sk = Server()
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return render_template('index.html', rooms=sk.rooms)
+    if sk.skype is None:
+        return render_template('login.html')
+    else:
+        return render_template('index.html', rooms=sk.rooms)
+
+
+@app.route('/', methods=['POST'])
+def login():
+    action = request.form['action_type']
+    if action == "input_password":
+        pwd = request.form['text-password']
+        sk.login(ID, pwd, member_event=new_member, chat_event=new_chat)
+        sk_thread = threading.Thread(target=sk.skype.loop)
+        sk_thread.start()
+        return render_template('index.html', rooms=sk.rooms)
+    else:
+        return "Invalid action"
 
 
 @app.route('/admin')
@@ -68,4 +83,3 @@ def edit_room():
 
 if __name__ == "__main__":
     app.run(debug=False)
-    sk_thread.start()
