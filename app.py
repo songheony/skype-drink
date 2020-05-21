@@ -1,5 +1,5 @@
 import threading
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from skpy import SkypeTextMsg
 from server import Server
 
@@ -36,20 +36,28 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     if sk.skype is None:
-        return render_template('login.html')
+        return redirect(url_for("login"))
     else:
         return render_template('index.html', rooms=sk.rooms)
 
 
-@app.route('/', methods=['POST'])
+@app.route('/login')
 def login():
+    if sk.skype is None:
+        return render_template('login.html')
+    else:
+        return redirect(url_for("/"))
+
+
+@app.route('/login', methods=['POST'])
+def connect():
     action = request.form['action_type']
     if action == "input_password":
         pwd = request.form['text-password']
         sk.login(ID, pwd, member_event=new_member, chat_event=new_chat)
         sk_thread = threading.Thread(target=sk.skype.loop)
         sk_thread.start()
-        return render_template('index.html', rooms=sk.rooms)
+        return "Success"
     else:
         return "Invalid action"
 
