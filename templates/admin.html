@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+  <style>
+  .card {
+    margin-top: 20px;
+  }
+  </style>
+  <title>Online drink party</title>
+</head>
+
+<body>
+  <div class="container">
+    <form method="POST">
+      <input type="hidden" value="add_room" name="action_type" />
+      <div class="row">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Name of room" aria-label="Name of room" name="text-add-room">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit" id="button-add-room">Add</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="col">
+      {% for title, room in rooms.items() %}
+      <form method="POST">
+        <input type="hidden" value="delete_room" name="action_type" />
+        <input type="hidden" value="{{ room.id }}" name="room_id" />
+        <div class="row">
+          <div class="col">
+            <h2>{{ title }}</h2>
+          </div>
+          <div class="col">
+            <button class="btn btn-primary btn-lg" type="submit">Delete</button>
+          </div>
+        </div>
+      </form>
+      {% endfor %}
+    </div>
+    <form method="POST">
+      <input type="hidden" value="delete_all" name="action_type" />
+      <div class="row">
+        <button class="btn btn-danger btn-lg" type="submit">Delete All</button>
+      </div>
+    </form>
+    <!-- /container -->
+
+  </div>
+
+  <!-- Optional JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
