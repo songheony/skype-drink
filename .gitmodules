@@ -1,3 +1,3 @@
-[submodule "SkPy"]
+[submodule "api/SkPy"]
 	path = api/SkPy
 	url = https://github.com/Terrance/SkPy.git
