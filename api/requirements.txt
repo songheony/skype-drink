@@ -13,7 +13,7 @@ mccabe
 pycodestyle
 pyflakes
 requests
-./SkPy
+./api/SkPy
 soupsieve
 urllib3
 Werkzeug
