@@ -13,7 +13,7 @@ mccabe
 pycodestyle
 pyflakes
 requests
-./api/SkPy
+git+git://github.com/Terrance/SkPy@master
 soupsieve
 urllib3
 Werkzeug
